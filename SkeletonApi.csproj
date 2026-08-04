@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="DTOs\" />
+    <Folder Include="Controllers\" />
     <Folder Include="Data\" />
     <Folder Include="Services\" />
   </ItemGroup>
