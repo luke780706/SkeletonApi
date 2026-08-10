@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using SkeletonApi.Data;
+using SkeletonApi.Services;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -20,6 +23,12 @@ namespace SkeletonApi
             // i będzie mógł je automatycznie tworzyć oraz obsługiwać żądania HTTP.
             builder.Services.AddControllers();
 
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(
+                        builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IProductService, ProductService>();
+
 
             // Dodajemy obsługę OpenAPI (dawniej często przez Swagger).
             // Dzięki temu aplikacja może wygenerować opis swojego API
@@ -32,7 +41,8 @@ namespace SkeletonApi
             //Swagger narzędzia korzystające z OpenAPI
             //Swagger UI graficzna strona do testowania API
 
-            builder.Services.AddOpenApi();
+            //builder.Services.AddOpenApi();
+            builder.Services.AddSwaggerGen();
 
 
             // Budujemy gotową aplikację na podstawie wcześniejszej konfiguracji.
@@ -46,7 +56,10 @@ namespace SkeletonApi
             {
                 // Udostępniamy dokumentację OpenAPI tylko podczas programowania.
                 // Nie chcemy zwykle wystawiać takich narzędzi na produkcji.
-                app.MapOpenApi();
+                //app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI();
+
             }
 
 
