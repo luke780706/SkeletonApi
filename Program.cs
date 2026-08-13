@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using SkeletonApi.Data;
 using SkeletonApi.Services;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SkeletonApi
 {
