@@ -1,4 +1,5 @@
-﻿using SkeletonApi.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SkeletonApi.Data;
 using SkeletonApi.Models;
 
 namespace SkeletonApi.Services
@@ -14,28 +15,28 @@ namespace SkeletonApi.Services
             _logger = logger;
         }
 
-        public Product AddProduct(Product product)
+        public async Task<Product> AddProductAsync(Product product)
         {
             _logger.LogInformation("Adding product: {ProductName}", product.Name);
 
             _db.Products.Add(product);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return product;
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
             _logger.LogInformation("Getting all products");
 
-            return [.. _db.Products]; 
+            return await _db.Products.ToListAsync(); 
         }
 
-        public Product? GetById(int id)
+        public async Task<Product?> GetByIdAsync(int id)
         {
             _logger.LogInformation("Getting product: {ProductId}", id);
 
-            var product = _db.Products.FirstOrDefault(x => x.Id == id);
+            var product = await _db.Products.FirstOrDefaultAsync(x => x.Id == id);
 
             if (product == null)
             {
@@ -46,11 +47,11 @@ namespace SkeletonApi.Services
             return product;
         }
 
-        public Product? Update(int id, Product product)
+        public async Task<Product?> UpdateAsync(int id, Product product)
         {
             _logger.LogInformation("Updating product: {ProductName}", product.Name);
 
-            var existingProduct = _db.Products.FirstOrDefault(x => x.Id == id);
+            var existingProduct = await _db.Products.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingProduct == null)
             {
@@ -61,16 +62,16 @@ namespace SkeletonApi.Services
             existingProduct.Name = product.Name;
             existingProduct.Price = product.Price;
 
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return existingProduct;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             _logger.LogInformation("Deleting product with product id: {ProductId}", id);
 
-            var productToDelete = _db.Products.FirstOrDefault(x => x.Id == id);
+            var productToDelete = await _db.Products.FirstOrDefaultAsync(x => x.Id == id);
 
             if (productToDelete == null)
             {
@@ -79,7 +80,7 @@ namespace SkeletonApi.Services
             }
 
             _db.Products.Remove(productToDelete);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return true;
         }

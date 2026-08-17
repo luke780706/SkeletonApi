@@ -7,7 +7,7 @@ namespace SkeletonApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             // Tworzymy "buildera" aplikacji.
             // Tutaj konfigurujemy wszystko, czego aplikacja będzie potrzebować:
@@ -47,6 +47,25 @@ namespace SkeletonApi
             // Od tego momentu mamy obiekt "app", którym konfigurujemy działanie API.
             var app = builder.Build();
 
+            app.Use(async (context, next) =>
+                {
+                    try
+                    {
+                        await next();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+
+                        context.Response.StatusCode = 500;
+
+                        await context.Response.WriteAsJsonAsync(new
+                        {
+                            message = "An unexpected error occurred"
+                        });
+
+                    }
+                });
 
             // Sprawdzamy, czy aplikacja działa w środowisku developerskim.
             // W Development pokazujemy dodatkowe narzędzia pomocne programiście.

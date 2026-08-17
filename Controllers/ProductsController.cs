@@ -22,10 +22,11 @@ namespace SkeletonApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ProductDto>> GetAll()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAll()
         {
-            var result = _productService.GetAll()
-                                        .Select(x => new ProductDto
+            var products = await _productService.GetAllAsync();
+
+            var result = products.Select(x => new ProductDto
                                         {
                                             Id = x.Id,
                                             Name = x.Name,
@@ -36,9 +37,9 @@ namespace SkeletonApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ProductDto> GetById(int id)
+        public async Task<ActionResult<ProductDto>> GetById(int id)
         {
-            var singleProduct = _productService.GetById(id);
+            var singleProduct = await _productService.GetByIdAsync(id);
 
             if (singleProduct == null)
             {
@@ -56,7 +57,7 @@ namespace SkeletonApi.Controllers
 
         }
         [HttpPost]
-        public ActionResult<ProductDto> AddProduct(CreateProductDto productDto)
+        public async Task<ActionResult<ProductDto>> AddProduct(CreateProductDto productDto)
         {
             Product productToAdd = new()
             {
@@ -64,7 +65,7 @@ namespace SkeletonApi.Controllers
                 Price = productDto.Price
             };
 
-            var newProduct = _productService.AddProduct(productToAdd);
+            var newProduct = await _productService.AddProductAsync(productToAdd);
 
             ProductDto result = new()
             {
@@ -77,7 +78,7 @@ namespace SkeletonApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ProductDto> UpdateProduct(int id, CreateProductDto productDto)
+        public async Task<ActionResult<ProductDto>> UpdateProduct(int id, CreateProductDto productDto)
         {
             Product product = new()
             {
@@ -85,7 +86,7 @@ namespace SkeletonApi.Controllers
                 Price = productDto.Price
             };
 
-            var updatedProduct = _productService.Update(id, product);
+            var updatedProduct = await _productService.UpdateAsync(id, product);
 
             if (updatedProduct == null)
             {
@@ -103,9 +104,9 @@ namespace SkeletonApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            var deleted = _productService.Delete(id);
+            var deleted = await _productService.DeleteAsync(id);
 
             if (!deleted)
             {

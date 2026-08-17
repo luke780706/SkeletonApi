@@ -4,10 +4,10 @@ namespace SkeletonApi.Services
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetAll();
-        Product AddProduct(Product product);
-        Product? GetById(int id);
-        Product? Update(int id, Product product);
-        bool Delete(int id);
+        Task<IEnumerable<Product>> GetAllAsync();
+        Task<Product> AddProductAsync(Product product);
+        Task<Product?> GetByIdAsync(int id);
+        Task<Product?> UpdateAsync(int id, Product product);
+        Task<bool> DeleteAsync(int id);
     }
 }
