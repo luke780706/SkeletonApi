@@ -5,9 +5,9 @@ namespace SkeletonApi.Services
     public interface IProductService
     {
         Task<IEnumerable<Product>> GetAllAsync();
-        Task<Product> AddProductAsync(Product product);
+        Task<Product> AddProductAsync(CreateProductModel product);
         Task<Product?> GetByIdAsync(int id);
-        Task<Product?> UpdateAsync(int id, Product product);
+        Task<Product?> UpdateAsync(int id, CreateProductModel product);
         Task<bool> DeleteAsync(int id);
     }
 }

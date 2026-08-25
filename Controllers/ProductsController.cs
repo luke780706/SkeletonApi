@@ -60,7 +60,7 @@ namespace SkeletonApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ProductDto>> AddProduct(CreateProductDto productDto)
         {
-            Product productToAdd = new()
+            CreateProductModel productToAdd = new()
             {
                 Name = productDto.Name,
                 Price = productDto.Price
@@ -79,9 +79,9 @@ namespace SkeletonApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProductDto>> UpdateProduct(int id, CreateProductDto productDto)
+        public async Task<ActionResult<ProductDto>> UpdateProduct(int id, UpdateProductDto productDto)
         {
-            Product product = new()
+            CreateProductModel product = new()
             {
                 Name = productDto.Name,
                 Price = productDto.Price

@@ -15,14 +15,20 @@ namespace SkeletonApi.Services
             _logger = logger;
         }
 
-        public async Task<Product> AddProductAsync(Product product)
+        public async Task<Product> AddProductAsync(CreateProductModel product)
         {
             _logger.LogInformation("Adding product: {ProductName}", product.Name);
 
-            _db.Products.Add(product);
+            var newProduct = new Product
+            {
+                Name = product.Name,
+                Price = product.Price
+            };
+
+            _db.Products.Add(newProduct);
             await _db.SaveChangesAsync();
 
-            return product;
+            return newProduct;
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync()
@@ -47,7 +53,7 @@ namespace SkeletonApi.Services
             return product;
         }
 
-        public async Task<Product?> UpdateAsync(int id, Product product)
+        public async Task<Product?> UpdateAsync(int id, CreateProductModel product)
         {
             _logger.LogInformation("Updating product: {ProductName}", product.Name);
 
