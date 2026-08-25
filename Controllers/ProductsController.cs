@@ -39,6 +39,7 @@ namespace SkeletonApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> GetById(int id)
         {
+
             var singleProduct = await _productService.GetByIdAsync(id);
 
             if (singleProduct == null)

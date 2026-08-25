@@ -49,13 +49,16 @@ namespace SkeletonApi
 
             app.Use(async (context, next) =>
                 {
+                    var logger = context.RequestServices
+                                        .GetRequiredService<ILogger<Program>>();
+
                     try
                     {
                         await next();
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        logger.LogError(ex,"An unexpected error occurred");
 
                         context.Response.StatusCode = 500;
 
