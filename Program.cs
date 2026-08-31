@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 using SkeletonApi.Data;
 using SkeletonApi.Services;
