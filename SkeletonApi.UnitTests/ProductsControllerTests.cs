@@ -5,7 +5,7 @@ using SkeletonApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using SkeletonApi.DTOs;
 
-namespace SkeletonApi.Tests
+namespace SkeletonApi.UnitTests
 {
     public class ProductsControllerTests
     {

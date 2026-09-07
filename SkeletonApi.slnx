@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="SkeletonApi.Tests/SkeletonApi.Tests.csproj" Id="78ee250a-3f6c-445f-889c-9b957495c4c9" />
   <Project Path="SkeletonApi.csproj" />
+  <Project Path="SkeletonApi.UnitTests/SkeletonApi.UnitTests.csproj" Id="03ce1a81-260f-47b4-94c5-746750a22c89" />
 </Solution>

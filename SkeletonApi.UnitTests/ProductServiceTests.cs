@@ -4,7 +4,7 @@ using SkeletonApi.Data;
 using SkeletonApi.Models;
 using SkeletonApi.Services;
 
-namespace SkeletonApi.Tests
+namespace SkeletonApi.UnitTests
 {
     public class ProductServiceTests
     {
@@ -127,10 +127,11 @@ namespace SkeletonApi.Tests
 
             //When
             var result = await service.UpdateAsync(
-                                        10, 
-                                        new CreateProductModel 
-                                        { 
-                                            Name = "Product 10", Price = 20 
+                                        10,
+                                        new CreateProductModel
+                                        {
+                                            Name = "Product 10",
+                                            Price = 20
                                         });
 
             //Then
@@ -151,9 +152,10 @@ namespace SkeletonApi.Tests
 
             //When
             var result = await service.UpdateAsync(10,
-                new CreateProductModel 
-                { 
-                    Name = "Product 20", Price = 10 
+                new CreateProductModel
+                {
+                    Name = "Product 20",
+                    Price = 10
                 });
 
             //Then
@@ -169,9 +171,10 @@ namespace SkeletonApi.Tests
 
             //When
             var result = await service.UpdateAsync(20,
-                new CreateProductModel 
-                { 
-                    Name = "Product 20", Price = 20 
+                new CreateProductModel
+                {
+                    Name = "Product 20",
+                    Price = 20
                 });
 
             //Then
